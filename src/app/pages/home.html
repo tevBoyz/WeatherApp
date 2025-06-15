@@ -1,0 +1,89 @@
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h1 class="display-5">🌤️ Weather App</h1>
+    <p class="lead">Get current weather by city</p>
+  </div>
+
+  <!-- Current Device Location Card -->
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-10">
+      <div *ngIf="currentLocationData" class="card shadow-sm mb-4">
+        <div class="card-body text-center">
+          <h4 class="card-title">
+            📍 Current Location: {{ currentLocationData.name === 'Ādīs'? 'Addis
+            Ababa' : currentLocationData.name }}
+            {{currentLocationData.sys.country}}
+          </h4>
+          <p>
+            🌡️ {{ currentLocationData.main.temp }} °C<br />
+            ☁️ {{ currentLocationData.weather[0].description }}<br />
+            💧 {{ currentLocationData.main.humidity }}%<br />
+            💨 {{ currentLocationData.wind.speed }} m/s
+          </p>
+        </div>
+      </div>
+      <div *ngIf="locationError" class="alert alert-warning text-center">
+        {{ locationError }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-5 mb-3">
+      <div *ngIf="addisData" class="card shadow-sm">
+        <div class="card-body text-center">
+          <h4 class="card-title">Addis Ababa, Ethiopia</h4>
+          <p>
+            🌡️ {{ addisData.main.temp }} °C<br />
+            ☁️ {{ addisData.weather[0].description }}<br />
+            💧 {{ addisData.main.humidity }}%<br />
+            💨 {{ addisData.wind.speed }} m/s
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5 mb-3">
+      <div *ngIf="ontarioData" class="card shadow-sm">
+        <div class="card-body text-center">
+          <h4 class="card-title">Onario, Canada</h4>
+          <p>
+            🌡️ {{ ontarioData.main.temp }} °C<br />
+            ☁️ {{ ontarioData.weather[0].description }}<br />
+            💧 {{ ontarioData.main.humidity }}%<br />
+            💨 {{ ontarioData.wind.speed }} m/s
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="input-group mb-3">
+        <input
+          [(ngModel)]="city"
+          type="text"
+          class="form-control"
+          placeholder="Search a city"
+        />
+        <button class="btn btn-primary" (click)="search()">Search</button>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+      <div *ngIf="weatherData" class="card shadow-sm">
+        <div class="card-body text-center">
+          <h2 class="card-title">{{ weatherData.name }}</h2>
+          <p class="card-text">
+            🌡️ Temp: <strong>{{ weatherData.main.temp }} °C</strong><br />
+            ☁️ Condition: {{ weatherData.weather[0].description }}<br />
+            💧 Humidity: {{ weatherData.main.humidity }}%<br />
+            💨 Wind: {{ weatherData.wind.speed }} m/s
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Static Cards -->
