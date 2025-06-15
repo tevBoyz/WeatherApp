@@ -27,7 +27,7 @@
         >
           <h4 class="card-title">
             📍 Current Location: {{ currentLocationData.name === 'Ādīs'? 'Addis
-            Ababa' : currentLocationData.name }}
+            Ababa' : currentLocationData.name }},
             {{currentLocationData.sys.country}}
           </h4>
           <p>
@@ -84,7 +84,9 @@
             class="card-body text-center"
             [ngStyle]="{'background-color': getCardColor(weather)}"
           >
-            <h5 class="card-title">{{ weather.name }}</h5>
+            <h5 class="card-title">
+              {{ weather.name }}, {{weather.sys.country}}
+            </h5>
             <p class="card-text">
               <strong>🌡️:</strong> {{ weather.main.temp }}°C<br />
               <strong>☁️:</strong> {{ weather.weather[0].description }}<br />
