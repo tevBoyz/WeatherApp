@@ -64,7 +64,7 @@ body {
 /* Fix thumb color in dark mode */
 body.dark-mode .form-check-input:checked {
   background-color: #ffc107; /* yellow when checked */
-  border-color: red;
+  border-color: #ffc107;
 }
 
 /* Override white thumb that appears by default */
