@@ -1,14 +1,30 @@
 <div class="container py-5">
-  <div class="text-center mb-4">
-    <h1 class="display-5">🌤️ Weather App</h1>
-    <p class="lead">Get current weather by city</p>
+  <div class="d-flex justify-content-between align-items-center flex-wrap p-3">
+    <h1 class="mb-0">🌤️ Weather App</h1>
+
+    <div class="form-check form-switch d-flex align-items-center gap-2">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="darkModeToggle"
+        [checked]="isDarkMode"
+        (change)="toggleDarkMode($event)"
+      />
+      <i
+        [class]="isDarkMode ? 'bi bi-moon-fill text-light rotate' : 'bi bi-sun-fill text-warning rotate'"
+        style="font-size: 1.5rem; transition: transform 0.5s ease"
+      ></i>
+    </div>
   </div>
 
   <!-- Current Device Location Card -->
   <div class="row justify-content-center mb-4">
     <div class="col-md-10">
       <div *ngIf="currentLocationData" class="card shadow-sm mb-4">
-        <div class="card-body text-center">
+        <div
+          class="card-body text-center"
+          [ngStyle]="{'background-color': getCardColor(currentLocationData)}"
+        >
           <h4 class="card-title">
             📍 Current Location: {{ currentLocationData.name === 'Ādīs'? 'Addis
             Ababa' : currentLocationData.name }}
@@ -28,42 +44,13 @@
     </div>
   </div>
 
-  <div class="row justify-content-center mb-4">
-    <div class="col-md-5 mb-3">
-      <div *ngIf="addisData" class="card shadow-sm">
-        <div class="card-body text-center">
-          <h4 class="card-title">Addis Ababa, Ethiopia</h4>
-          <p>
-            🌡️ {{ addisData.main.temp }} °C<br />
-            ☁️ {{ addisData.weather[0].description }}<br />
-            💧 {{ addisData.main.humidity }}%<br />
-            💨 {{ addisData.wind.speed }} m/s
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-5 mb-3">
-      <div *ngIf="ontarioData" class="card shadow-sm">
-        <div class="card-body text-center">
-          <h4 class="card-title">Ontario, Canada</h4>
-          <p>
-            🌡️ {{ ontarioData.main.temp }} °C<br />
-            ☁️ {{ ontarioData.weather[0].description }}<br />
-            💧 {{ ontarioData.main.humidity }}%<br />
-            💨 {{ ontarioData.wind.speed }} m/s
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
       <div class="input-group mb-3">
         <input
           [(ngModel)]="city"
           type="text"
+          (keydown.enter)="search()"
           class="form-control"
           placeholder="Search a city"
         />
@@ -73,7 +60,10 @@
       <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
 
       <div *ngIf="weatherData" class="card shadow-sm">
-        <div class="card-body text-center">
+        <div
+          class="card-body text-center"
+          [ngStyle]="{'background-color': getCardColor(weatherData)}"
+        >
           <h2 class="card-title">{{ weatherData.name }}</h2>
           <p class="card-text">
             🌡️ Temp: <strong>{{ weatherData.main.temp }} °C</strong><br />
@@ -85,5 +75,52 @@
       </div>
     </div>
   </div>
+
+  <div class="container mt-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" *ngFor="let weather of data">
+        <div class="card h-100 shadow-sm">
+          <div
+            class="card-body text-center"
+            [ngStyle]="{'background-color': getCardColor(weather)}"
+          >
+            <h5 class="card-title">{{ weather.name }}</h5>
+            <p class="card-text">
+              <strong>🌡️:</strong> {{ weather.main.temp }}°C<br />
+              <strong>☁️:</strong> {{ weather.weather[0].description }}<br />
+              <strong>💧:</strong> {{ weather.main.humidity }}%<br />
+              <strong>💨:</strong> {{ weather.wind.speed }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- Static Cards -->
+
+<div class="legend mt-4 p-3 rounded border border-secondary">
+  <div class="d-flex flex-wrap gap-3 mt-2">
+    <div class="legend-item" style="background-color: #a3d8f4">
+      ❄️ ≤ 0°C – Freezing
+    </div>
+    <div class="legend-item" style="background-color: #76c7c0">
+      🌬️ 1–15°C – Cold
+    </div>
+    <div class="legend-item" style="background-color: #ffe066">
+      🌤️ 16–25°C – Mild
+    </div>
+    <div class="legend-item" style="background-color: #ffa94d">
+      🌞 26–35°C – Warm
+    </div>
+    <div class="legend-item" style="background-color: #ff6b6b">
+      🔥 > 35°C – Hot
+    </div>
+    <div class="legend-item" style="background-color: #74c0fc">🌧️ Rainy</div>
+    <div class="legend-item" style="background-color: #ced4da">☁️ Cloudy</div>
+    <div class="legend-item" style="background-color: #9c36b5; color: white">
+      🌩️ Thunderstorm
+    </div>
+    <div class="legend-item" style="background-color: #f1f3f5">❄️ Snow</div>
+  </div>
+</div>
