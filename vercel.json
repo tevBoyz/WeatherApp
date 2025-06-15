@@ -1,6 +1,6 @@
 {
   "buildCommand": "./vercel-build.sh",
-  "outputDirectory": "dist",
+   "outputDirectory": "dist/weather-app",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
