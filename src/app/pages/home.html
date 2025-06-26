@@ -31,10 +31,10 @@
             {{currentLocationData.sys.country}}
           </h4>
           <p>
-            🌡️ {{ currentLocationData.main.temp }} °C<br />
-            ☁️ {{ currentLocationData.weather[0].description }}<br />
-            💧 {{ currentLocationData.main.humidity }}%<br />
-            💨 {{ currentLocationData.wind.speed }} m/s
+            🌡️ : {{ currentLocationData.main.temp | number:'1.0-0' }} °C<br />
+            ☁️ : {{ currentLocationData.weather[0].description }}<br />
+            💧 : {{ currentLocationData.main.humidity }}%<br />
+            💨 : {{ currentLocationData.wind.speed }} m/s
           </p>
         </div>
       </div>
@@ -66,10 +66,12 @@
         >
           <h2 class="card-title">{{ weatherData.name }}</h2>
           <p class="card-text">
-            🌡️ Temp: <strong>{{ weatherData.main.temp }} °C</strong><br />
-            ☁️ Condition: {{ weatherData.weather[0].description }}<br />
-            💧 Humidity: {{ weatherData.main.humidity }}%<br />
-            💨 Wind: {{ weatherData.wind.speed }} m/s
+            🌡️ :
+            <strong>{{ weatherData.main.temp | number:'1.0-0' }} °C</strong
+            ><br />
+            ☁️ : {{ weatherData.weather[0].description }}<br />
+            💧 : {{ weatherData.main.humidity }}%<br />
+            💨 : {{ weatherData.wind.speed }} m/s
           </p>
         </div>
       </div>
@@ -88,10 +90,11 @@
               {{ weather.name }}, {{weather.sys.country}}
             </h5>
             <p class="card-text">
-              <strong>🌡️:</strong> {{ weather.main.temp }}°C<br />
-              <strong>☁️:</strong> {{ weather.weather[0].description }}<br />
-              <strong>💧:</strong> {{ weather.main.humidity }}%<br />
-              <strong>💨:</strong> {{ weather.wind.speed }}
+              <strong>🌡️ :</strong> {{ weather.main.temp | number:'1.0-0'
+              }}°C<br />
+              <strong>☁️ :</strong> {{ weather.weather[0].description }}<br />
+              <strong>💧 :</strong> {{ weather.main.humidity }}%<br />
+              <strong>💨 :</strong> {{ weather.wind.speed }} m/s
             </p>
           </div>
         </div>
